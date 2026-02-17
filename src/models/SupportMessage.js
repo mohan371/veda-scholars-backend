@@ -3,34 +3,28 @@ const mongoose = require('mongoose');
 const supportMessageSchema = new mongoose.Schema({
     conversationId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'SupportConversation',
-        required: true,
-        index: true
+        ref: 'Conversation',
+        required: true
     },
-    senderId: {
+    sender: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true
     },
     senderRole: {
         type: String,
-        enum: ['user', 'admin'],
+        enum: ['user', 'admin'], // Normalized roles for message sender
         required: true
     },
     message: {
         type: String,
-        required: true,
-        trim: true
-    },
-    isRead: {
-        type: Boolean,
-        default: false
+        required: true
     }
 }, {
     timestamps: true
 });
 
-// Index for efficient queries
+// Indexes for performance
 supportMessageSchema.index({ conversationId: 1, createdAt: 1 });
 
 module.exports = mongoose.model('SupportMessage', supportMessageSchema);

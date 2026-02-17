@@ -26,7 +26,11 @@ app.use(limiter);
 app.use(express.json());
 app.use(express.static('public'));
 app.use('/uploads', express.static('uploads'));
-app.use(cors());
+// CORS Configuration
+app.use(cors({
+    origin: "*",
+    credentials: true
+}));
 
 // Tenant Middleware
 app.use(require('./middleware/tenantMiddleware').resolveTenant);
@@ -45,7 +49,7 @@ app.use('/api/applications', applicationRoutes);
 app.use('/api/notifications', notificationRoutes);
 app.use('/api/payments', require('./routes/paymentRoutes'));
 app.use('/api/subscriptions', require('./routes/subscriptionRoutes'));
-app.use('/api/chat', require('./routes/chatRoutes')); // Register Chat Routes
+
 app.use('/api/support', require('./routes/supportRoutes'));
 app.use('/api/admin', require('./routes/adminUserRoutes')); // Admin User Management
 
