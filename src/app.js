@@ -26,6 +26,12 @@ app.use(limiter);
 app.use(express.json());
 app.use(express.static('public'));
 app.use('/uploads', express.static('uploads'));
+
+// Root Route for Health Check
+app.get('/', (req, res) => {
+    res.send('Veda Scholars Backend is Running 🚀');
+});
+
 // CORS Configuration
 app.use(cors({
     origin: "*",
